@@ -6,7 +6,7 @@ import os
 ### --- parameter --- ###
 
 # 
-dir_mark = r'C:\test'
+dir_mark = r'/home/pi/Desktop/BDM_another/marker'
 
 # 
 num_mark = 20 #
