@@ -18,6 +18,8 @@ class MarkSearch :
         静止画を取得し、arucoマークのidリストを取得する
         """
         ret, frame = self.cap.read()
+        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        
         gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
 
         corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, dict_aruco, parameters=parameters)
