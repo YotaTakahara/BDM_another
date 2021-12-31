@@ -20,7 +20,7 @@ global_average=4
 global_count=0
 global_array=[]
 global_definition=5
-global_definition=["nomi.mp3","badopa.mp3","ippanppi-po-.mp3","haibokusha.mp3"]
+global_definition_array=["music/nomi.mp3","music/badopa.mp3","music/ippanppi-po-.mp3","music/haibokusha.mp3"]
 
 
 
@@ -91,10 +91,10 @@ def checkCall():
     # p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
 	while True:
 		pygame.mixer.init()
-		pygame.mixer.music.load("sakekas.mp3")
+		pygame.mixer.music.load("music/callStart.mp3")
 		pygame.mixer.music.play(1)
 		countforCall=0
-		while countforCall<80:
+		while countforCall<2:
 			
 			dis =distance()
 			ans_count+=1
@@ -115,8 +115,19 @@ def checkCall():
 
 
 def pour_sake():
+	global global_definition
+	print("global_definition: "+str(global_definition))
 	motor(directions['CW'])
-	time.sleep(10)
+	if global_definition==0:
+		time.sleep(12)
+	elif global_definition==1:	
+		time.sleep(10)
+	elif global_definition==2:
+		time.sleep(7)
+	elif global_definition==3:
+		time.sleep(3)
+	else:
+		time.sleep(5)
 	motor(directions['STOP'])
 
 def change_action():
@@ -124,24 +135,40 @@ def change_action():
 	global global_array
 	global global_average
 	sub_num=int(global_average/2)
+	ans=sum(global_array)/len(global_array)
 	for i in range(len(global_array)-sub_num):
 		global_array.pop(0)
-	ans=sum(global_array)/global_average
+	#ans=sum(global_array)/global_average
 	print("ans: "+str(ans))
+	change_action_execute(ans)
 
-	
+def change_action_execute(ans):
+	global global_definition
+	if  ans<7:
+		global_definition=0
+	elif 7<=ans and ans <10:
+		global_definition=1    
+	elif 10<=ans and ans<=30:
+		global_definition=2
+	else :
+		global_definition=3
+	pygame.mixer.init()
+	pygame.mixer.music.load(global_definition_array[global_definition])
+	pygame.mixer.music.play(1)	
+  
+  
 
 def nomisa_definition(tmpX):
-    global global_count
-    global global_array
-    print("global_array:"+str(global_array))
-    if global_count<global_average:
-        global_array.append(tmpX)
-        return
-    else:
-        change_action()
-        global_count=0
-		
+	global global_count
+	global global_array
+    
+	if global_count<global_average:
+		global_array.append(tmpX)
+        
+	else:
+		change_action()
+		global_count=0
+	print("global_array:"+str(global_array))	
 
 def main():
 	count=0
