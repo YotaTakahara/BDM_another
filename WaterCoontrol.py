@@ -86,9 +86,24 @@ def distance():
 def checkCall():
 	print("call start")
 	ans_count=0	
-	
-    # p=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue1.mov")
-    # p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
+	pygame.mixer.init()
+	pygame.mixer.music.load("music/callStart.mp3")
+	pygame.mixer.music.play(1)
+	while True:
+		p=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue1.mov")
+		dis =distance()
+		if dis<=10 or 1000<=dis	:
+			ans_count+=1
+			print("call stops from video")
+			return ans_count
+		p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
+		if dis<=10 or 1000<=dis	:
+			ans_count+=1
+			print("call stop from video")
+			return ans_count
+		p2=	os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue3.mov")
+		time.sleep(0.5)	
+
 	while True:
 		pygame.mixer.init()
 		pygame.mixer.music.load("music/callStart.mp3")
