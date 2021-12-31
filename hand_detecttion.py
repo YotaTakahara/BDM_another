@@ -4,7 +4,8 @@ import copy
 import argparse
 import pygame
 import time
-
+import os
+import subprocess
 import cv2 as cv
 import numpy as np
 import mediapipe as mp
@@ -388,13 +389,15 @@ def alert_play(check):
     global global_music_bool
     
     global_music_bool=False
-    
-    pygame.mixer.init()
     if check==1:
-        pygame.mixer.music.load("4428468134896.mp3")
-    elif check==2:        
-        pygame.mixer.music.load("4428468134972.mp3")
-    pygame.mixer.music.play()
+        p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/sekuhara.mov")
+    
+    # pygame.mixer.init()
+    # if check==1:
+    #     pygame.mixer.music.load("4428468134896.mp3")
+    # elif check==2:        
+    #     pygame.mixer.music.load("4428468134972.mp3")
+    # pygame.mixer.music.play()
     
     global_music_bool=True
     
