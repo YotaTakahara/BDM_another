@@ -85,9 +85,10 @@ def distance():
 def checkCall():
     print("call start")
     ans_count=0	
-    p=os.system("sudo python3 movie.py")
-    time.sleep(3.0)
-    p.exit()
+    # p=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue1.mov")
+    # p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
+    
+    
     
     while True:
        
@@ -100,6 +101,7 @@ def checkCall():
         while countforCall<80:
             dis =distance()
             ans_count+=1
+            
             if dis<=10 or 1000<=dis:#if there is a cup,call stops.
                 
                 print("call stops suddenly")
@@ -113,24 +115,6 @@ def checkCall():
     # pygame.mixer.music.stop()
  #   time.sleep(10.0)
 
-def loop():
-    global global_count
-    print("pass")
-    count=0
-		#time.sleep(5)
-    while True:
-        dis = distance()
-        if 10<dis and dis<1000:#if there is not a cup,call starts.
-            count+=1
-        else:
-            count=0
-        if count>3:
-            tmpX=checkCall()
-            global_count+=1
-            nomisa_definition(tmpX)
-            count=0
-        print ('Distance: %.2f' % dis)
-        time.sleep(0.3)
 
 def pour_sake():
 	motor(directions['CW'])
