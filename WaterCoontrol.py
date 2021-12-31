@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 import time
 import os
 import sys
+import subprocess
 
 # Set up pins
 MotorPin1   = 17
@@ -18,6 +19,8 @@ directions = {'CW': 1, 'CCW': -1, 'STOP': 0}
 global_average=4
 global_count=0
 global_array=[]
+global_definition=["nomi.mp3","badopa.mp3","ippanppi-po-.mp3","haibokusha.mp3"]
+
 
 
 
@@ -82,8 +85,12 @@ def distance():
 def checkCall():
     print("call start")
     ans_count=0	
+    p=os.system("sudo python3 movie.py")
+    time.sleep(3.0)
+    p.exit()
+    
     while True:
-        os.system("omxplayer tin.mkv")
+       
     # pygame.mixer.init()
     # pygame.mixer.music.load("sakekas.mp3")
     # pygame.mixer.music.play(1)
@@ -107,6 +114,7 @@ def checkCall():
  #   time.sleep(10.0)
 
 def loop():
+    global global_count
     print("pass")
     count=0
 		#time.sleep(5)
@@ -139,6 +147,7 @@ def change_action():
 	
 
 def nomisa_definition(tmpX):
+    global global_count
     if global_count<global_average:
         global_array.append(tmpX)
         return
