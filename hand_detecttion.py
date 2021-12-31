@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import copy
 import argparse
+import pygame
 
 import cv2 as cv
 import numpy as np
@@ -377,7 +378,8 @@ def final_check():
         global_string_ans="ring finger"    
             
 
-    
+
+
 
 
 
