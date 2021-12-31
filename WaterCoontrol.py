@@ -92,16 +92,27 @@ def checkCall():
 	while True:
 		p=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue1.mov")
 		dis =distance()
+		print("sugoi distance:"+str(distance))
 		if dis<=10 or 1000<=dis	:
 			ans_count+=1
 			print("call stops from video")
 			return ans_count
+		pygame.mixer.music.load("music/karano.mp3")
+		pygame.mixer.music.play(1)
 		p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
+		dis =distance()
 		if dis<=10 or 1000<=dis	:
 			ans_count+=1
 			print("call stop from video")
 			return ans_count
+		pygame.mixer.music.load("music/karano.mp3")
+		pygame.mixer.music.play(1)
 		p2=	os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue3.mov")
+		dis =distance()
+		if dis<=10 or 1000<=dis	:
+			ans_count+=1
+			print("call stop from video")
+			return ans_count
 		time.sleep(0.5)	
 
 	while True:
@@ -212,7 +223,7 @@ def main():
 			if pouring_is_needed==True:
 				pour_sake()
 				pouring_is_needed=False
-		if count>1:
+		if count>3:
 			pouring_is_needed=True
 			tmpX=checkCall()
 			global_count+=1
