@@ -3,6 +3,7 @@
 import copy
 import argparse
 import pygame
+import time
 
 import cv2 as cv
 import numpy as np
@@ -281,8 +282,8 @@ def draw_landmarks(image, cx, cy, landmarks, handedness):
             global_middle_ans=0
             global_ring_ans+=1
 
-        else :
-            global_index_ans=0    
+        # else :
+        #     global_index_ans=0    
         final_check()
 
         # 親指
@@ -347,13 +348,8 @@ def check_finger(landmark0,landmark1,landmark2,landmark3):
     tmp=calc_vector(landmark1,landmark0)
     tmp1=calc_vector(landmark3,landmark0)
 
-    print('tmp')
-    print(tmp)
-    print('tmp1')
-    print(tmp1)
     ans=np.sqrt((tmp[0]-tmp1[0])**2+(tmp[1]-tmp1[1])**2)
-    print('ans')
-    print(ans)
+
     global global_check
     if  ans<global_check:
         return True
@@ -369,17 +365,38 @@ def final_check():
     global global_middle_ans
     global global_ring_ans
     global global_ans_check
+    global global_music_bool
     global global_string_ans
-    if global_ans_check<=global_index_ans:
+    if global_ans_check<=global_index_ans  and global_music_bool==True:
         global_string_ans="index finger"
-    elif global_ans_check<=global_middle_ans:
+        global_index_ans=0
+        alert_play(1)
+    elif global_ans_check<=global_middle_ans and global_music_bool==True:
         global_string_ans="middle finger"    
-    elif global_ans_check<=global_ring_ans:
-        global_string_ans="ring finger"    
+        global_middle_ans=0
+        alert_play(2)
+    elif global_ans_check<=global_ring_ans and global_music_bool==True:
+        global_string_ans="ring finger"   
+        global_ring_ans=0 
+        alert_play(3)
             
+global_music_bool=True
 
-
-
+def alert_play(check):
+    global global_music_bool
+    
+    global_music_bool=False
+    
+    pygame.mixer.init()
+    if check==1:
+        pygame.mixer.music.load("4428468134896.mp3")
+    elif check==2:        
+        pygame.mixer.music.load("4428468134972.mp3")
+    pygame.mixer.music.play()
+    
+    global_music_bool=True
+    
+    
 
 
 
