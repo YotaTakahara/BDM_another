@@ -19,6 +19,7 @@ directions = {'CW': 1, 'CCW': -1, 'STOP': 0}
 global_average=4
 global_count=0
 global_array=[]
+global_definition=5
 global_definition=["nomi.mp3","badopa.mp3","ippanppi-po-.mp3","haibokusha.mp3"]
 
 
@@ -83,31 +84,27 @@ def distance():
 	return during * 340 / 2 * 100
 
 def checkCall():
-    print("call start")
-    ans_count=0	
+	print("call start")
+	ans_count=0	
+	
     # p=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue1.mov")
     # p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/grandBlue2.mov")
-    
-    
-    
-    while True:
-       
-    # pygame.mixer.init()
-    # pygame.mixer.music.load("sakekas.mp3")
-    # pygame.mixer.music.play(1)
-        time.sleep(2)
-
-        countforCall=0
-        while countforCall<80:
-            dis =distance()
-            ans_count+=1
+	while True:
+		pygame.mixer.init()
+		pygame.mixer.music.load("sakekas.mp3")
+		pygame.mixer.music.play(1)
+		countforCall=0
+		while countforCall<80:
+			
+			dis =distance()
+			ans_count+=1
             
-            if dis<=10 or 1000<=dis:#if there is a cup,call stops.
+			if dis<=10 or 1000<=dis:#if there is a cup,call stops.
                 
-                print("call stops suddenly")
-                return ans_count		
-            time.sleep(0.5)
-            countforCall+=1
+				print("call stops suddenly")
+				return ans_count		
+			time.sleep(0.5)
+			countforCall+=1
         			
         # if dis<=10 or 1000<=dis:#if there is a cup,call stops.
         #     return ans_count		
@@ -116,22 +113,28 @@ def checkCall():
  #   time.sleep(10.0)
 
 
+
 def pour_sake():
 	motor(directions['CW'])
 	time.sleep(10)
 	motor(directions['STOP'])
 
 def change_action():
+	global global_definition
+	global global_array
+	global global_average
 	sub_num=int(global_average/2)
 	for i in range(len(global_array)-sub_num):
-		global_average.pop(0)
-	ans=sum(global_average)/global_average
-	print(ans)
+		global_array.pop(0)
+	ans=sum(global_array)/global_average
+	print("ans: "+str(ans))
 
 	
 
 def nomisa_definition(tmpX):
     global global_count
+    global global_array
+    print("global_array:"+str(global_array))
     if global_count<global_average:
         global_array.append(tmpX)
         return
@@ -142,6 +145,7 @@ def nomisa_definition(tmpX):
 
 def main():
 	count=0
+	global global_count
 
 	# Define a dictionary to make the script more readable
 	# CW as clockwise, CCW as counterclockwise, STOP as stop
@@ -166,11 +170,14 @@ def main():
 			if pouring_is_needed==True:
 				pour_sake()
 				pouring_is_needed=False
-		if count>3:
-			checkCall()
+		if count>1:
 			pouring_is_needed=True
+			tmpX=checkCall()
+			global_count+=1
+			print("global_count: "+str(global_count))
+			nomisa_definition(tmpX)
 			count=0
-		print ('Distance: %.2f' % dis)
+		print('Distance: %.2f' % dis)
 		time.sleep(0.3)
 
 
