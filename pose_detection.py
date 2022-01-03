@@ -2,12 +2,16 @@
 # -*- coding: utf-8 -*-
 import copy
 import argparse
-
+import folium
+import requests
 import cv2 as cv
 import numpy as np
 import mediapipe as mp
+import datetime
 
 from utils import CvFpsCalc
+import os
+import time
 
 
 
@@ -51,7 +55,7 @@ def get_args():
 
     return args
 
-
+cap = cv.VideoCapture(0)
 def main():
     # 引数解析 #################################################################
     args = get_args()
@@ -71,7 +75,8 @@ def main():
     plot_world_landmark = args.plot_world_landmark
 
     # カメラ準備 ###############################################################
-    cap = cv.VideoCapture(cap_device)
+    # cap = cv.VideoCapture(cap_device)
+    global cap
     cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
     cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
 
@@ -429,11 +434,7 @@ def check_position(landmark_point):
     global_sum=sum
 
     
-    print("0")
-    print(last_position)
-    print("1")
-    print(landmark_point)
-    print("0")
+  
     # print(landmark_point[0])
     # print(landmark_point[0][1][0])
     # print(landmark_point[0][1][1])    
@@ -450,9 +451,30 @@ def alive_check_alert():
     else:
         global_th_count=20
     if global_th_count <=0:
+        
         global_string="deisui alert"    
-    
-    
+        geo_request_url = 'https://get.geojs.io/v1/ip/geo.json'
+        data = requests.get(geo_request_url).json()
+        print(data['latitude'])
+        print(data['longitude'])
+        map = folium.Map(location=[data['latitude'], data['longitude']], zoom_start=18)
+        folium.Marker(location=[data['latitude'], data['longitude']]).add_to(map)
+
+        map.save("result.html")
+
+
+
+
+
+        global cap
+        ret,frame=cap.read()
+# cv2.imshow("Frame", frame)
+        alochol=datetime.datetime.now()
+        cv.imwrite('line_photo/alochol.jpg',frame)
+
+
+        os.system("./linestamp1.sh alochol.jpg")
+        
     
     
     
