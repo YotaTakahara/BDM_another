@@ -4,6 +4,9 @@ import os
 import subprocess
 import folium
 import requests
+import stat
+from pathlib import Path
+
 
 
 geo_request_url = 'https://get.geojs.io/v1/ip/geo.json'
@@ -24,6 +27,5 @@ ret,frame=camera.read()
 # cv2.imshow("Frame", frame)
 alochol=datetime.datetime.now()
 cv2.imwrite('line_photo/alochol.jpg',frame)
-
 
 os.system("./linestamp1.sh alochol.jpg")
