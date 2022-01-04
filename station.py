@@ -84,12 +84,13 @@ tmp=l[1].split(':')
 print(tmp)
 check=0
 print(stations)
+print(stations[len(stations)-1])
 while True:
     if when[0]==tmp[0][0] and when[1]==tmp[0][1] and when[3]==tmp[1][0] and when[4]==tmp[1][1]:
         print("oke")
         
         break
-    else:
+    # else:
         # print(when[0]==tmp[0][0])
         
         # print(when[1])
@@ -98,6 +99,8 @@ while True:
         # print(tmp[1][0])
         # print(when[4])
         # print(tmp[1][1])
-        print("no")    
-print(stations[len(stations)-1])
+        #print("no")    
+    
+    
+
 
