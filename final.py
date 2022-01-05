@@ -22,6 +22,7 @@ from utils import CvFpsCalc
 departure_station=""
 destination_station=""
 when=[]
+stations=[]
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -93,7 +94,7 @@ def station():
     route_detail = route_soup.find("div",class_ = "routeDetail")
 
     #乗換駅の取得
-    stations = []
+    global stations
     stations_tmp = route_detail.find_all("div", class_="station")
     for station in stations_tmp:
         stations.append(station.get_text().strip())
@@ -146,6 +147,7 @@ def station():
 
 def main():
     global when
+    global stations
     # 引数解析 #################################################################
     args = get_args()
 
@@ -175,7 +177,7 @@ def main():
         dt=datetime.datetime.now()
         l=str(dt).split()
         tmp=l[1].split(':')
-        print(tmp)
+       
         
         # カメラキャプチャ #####################################################
         ret, image = cap.read()
@@ -187,7 +189,7 @@ def main():
         # 検出実施 #############################################################
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         fps=(255,255,255)
-        cv2.putText(debug_image,'deisui',(10, 30),
+        cv2.putText(debug_image,str(stations[0])+"から"+str(stations[len(stations)-1])+"\n"+"現在時刻: "+str(tmp)+"電車の時刻: "+str(when[0])+str(when[1])+str(when[2])+str(when[3])+str(when[3]),(10, 30),
                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, fps, 2, cv2.LINE_AA)
     
         if when[0]==tmp[0][0] and when[1]==tmp[0][1] and when[3]==tmp[1][0] and when[4]==tmp[1][1]:
