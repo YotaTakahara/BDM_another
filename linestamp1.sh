@@ -11,7 +11,7 @@ curl -X POST -H "Authorization: Bearer ${token}" -F "message = I'm drunk!! Pick 
 #xdg-open result.html
 check="line_photo/file_name.jpg"
 
-scrot  line_photo/file_name.jpg -d 5
+scrot  line_photo/file_name.jpg -d 10
 
 curl -X POST -H "Authorization: Bearer ${token}" -F "message = I'm here !!!!!!!!! "  -F "imageFile=@${check}" https://notify-api.line.me/api/notify
 #curl -X POST -H "Authorization: Bearer ${token}"  -F "imageFile=@${photo_file}" https://notify-api.line.me/api/notify

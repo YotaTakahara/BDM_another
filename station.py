@@ -2,7 +2,12 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
+import argparse
+import cv2
 # import strip
+
+
+
 
 #出発駅の入力
 departure_station = input("出発駅を入力してください：")
@@ -85,7 +90,19 @@ print(tmp)
 check=0
 print(stations)
 print(stations[len(stations)-1])
+
+
+
+cap=cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 960)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
 while True:
+    ret,image=cap.read()
+    # ミラー表示
+    fps=(255,255,255)
+    cv2.putText(image,'deisui',(10, 30),
+                   cv2.FONT_HERSHEY_SIMPLEX, 1.0, fps, 2, cv2.LINE_AA)
+    cv2.imshow('camera',image)
     if when[0]==tmp[0][0] and when[1]==tmp[0][1] and when[3]==tmp[1][0] and when[4]==tmp[1][1]:
         print("oke")
         
@@ -102,5 +119,3 @@ while True:
         #print("no")    
     
     
-
-

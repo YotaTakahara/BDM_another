@@ -153,7 +153,7 @@ def pour_sake():
 	elif global_definition==3:
 		time.sleep(3)
 	else:
-		time.sleep(5)
+		time.sleep(10)
 	motor(directions['STOP'])
 
 def change_action():

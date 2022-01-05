@@ -19,15 +19,15 @@ last_position=[]
 global_start=0
 global_sum=0
 global_th=800
-global_th_count=20
+global_th_count=10
 
 global_string=""
 def get_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--device", type=int, default=0)
-    parser.add_argument("--width", help='cap width', type=int, default=960)
-    parser.add_argument("--height", help='cap height', type=int, default=540)
+    parser.add_argument("--width", help='cap width', type=int, default=1920)
+    parser.add_argument("--height", help='cap height', type=int, default=1080)
 
     # parser.add_argument('--upper_body_only', action='store_true')  # 0.8.3 or less
     parser.add_argument("--model_complexity",
@@ -448,8 +448,7 @@ def alive_check_alert():
     global global_th
     if global_sum<global_th:
         global_th_count-=1
-    else:
-        global_th_count=20
+    
     if global_th_count <=0:
         
         global_string="deisui alert"    

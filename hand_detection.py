@@ -16,7 +16,7 @@ global_check=0.08
 global_index_ans=0
 global_middle_ans=0
 global_ring_ans=0
-global_ans_check=20
+global_ans_check=5
 global_string_ans=""
 
 
@@ -395,13 +395,6 @@ def alert_play(check):
         p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/aruhara.mov")
     elif check==3:
         p1=os.system("sudo mplayer -xy 1900 -geometry 50%:50% music/takaharaOut.mov")    
-    # pygame.mixer.init()
-    # if check==1:
-    #     pygame.mixer.music.load("4428468134896.mp3")
-    # elif check==2:        
-    #     pygame.mixer.music.load("4428468134972.mp3")
-    # pygame.mixer.music.play()
-    
     global_music_bool=True
     
     
